@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
+    "gh-pages": "git subtree push --prefix dist origin gh-pages",
     "deploy": "gh-pages -d dist"
   },
   "keywords": [
@@ -16,7 +17,7 @@
   },
   "author": "aPinix",
   "license": "ISC",
-  "homepage": "https://aPinix.github.io/svg2ficon",
+  "homepage": "http://apinix.github.io/svg2ficon/",
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
