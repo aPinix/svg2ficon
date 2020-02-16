@@ -1,22 +1,23 @@
-// dependencies ---------------------------------------------------------------
-// const gulp             = require('gulp');
+// imports --------------------
+
+// imports: gulp
 import gulp from 'gulp';
 
-// iconfont
+// imports: iconfont
 import gulpIconfont from 'gulp-iconfont';
 import gulpIconfontCss from 'gulp-iconfont-css';
 
-// sass
+// imports: sass
 import sass from 'gulp-sass';
 import cleanCSS from 'gulp-clean-css';
 import autoprefixer from 'gulp-autoprefixer';
 import sourcemaps from 'gulp-sourcemaps';
 
-// scripts
+// imports: scripts
 import babel from 'gulp-babel';
 import uglify from 'gulp-uglify';
 
-// utils
+// imports: utils
 import browserSync from 'browser-sync';
 import del from 'del';
 import rename from 'gulp-rename';
@@ -24,64 +25,46 @@ import concat from 'gulp-concat';
 
 
 
+// vars --------------------
+
 const server = browserSync.create();
-
-
-// fonticons vars -------------------------------------------------------------
-
-// Fonticons
-let fontName = 'altaricons';
-let projectName = `svg2ficon`; // ?
+const runTimestamp = Math.round(Date.now()/1000);
+const fontName = 'altaricons';
 
 
 
-// paths ----------------------------------------------------------------------
+// paths --------------------
 
-// global
+// paths: global
 const FOLDER_BASE                = ''; // `${process.cwd()}`; // ?
 const FOLDER_SRC                 = `${FOLDER_BASE}src`; // ?
 const FOLDER_DIST                = `${FOLDER_BASE}dist`; // ?
 
-const FOLDER_SRC_ASSETS          = `${FOLDER_SRC}/${projectName}/assets`; // ?
-const FOLDER_DIST_ASSETS         = `${FOLDER_DIST}/${projectName}/assets`; // ?
+// paths: assets
+const FOLDER_SRC_ASSETS          = `${FOLDER_SRC}/assets`; // ?
+const FOLDER_DIST_ASSETS         = `${FOLDER_DIST}/assets`; // ?
 
+// paths: styles
 const FOLDER_SRC_SASS            = `${FOLDER_SRC_ASSETS}/sass`; // ?
 const FOLDER_DIST_CSS            = `${FOLDER_DIST_ASSETS}/css`; // ?
 
+// paths: scripts
 const FOLDER_SRC_JS              = `${FOLDER_SRC_ASSETS}/js`; // ?
 const FOLDER_DIST_JS             = `${FOLDER_DIST_ASSETS}/js`; // ?
 
-const FOLDER_SRC_TEMPLATES       = `${FOLDER_SRC}/${projectName}/templates`; // ?
-const FOLDER_ICONFONT_SVG        = `${FOLDER_SRC}/${projectName}/svg`; // ?
+// paths: templates
+const FOLDER_SRC_TEMPLATES       = `${FOLDER_SRC}/templates`; // ?
+const FOLDER_ICONFONT_SVG        = `${FOLDER_SRC}/svg`; // ?
 
 
-
-// vars ----------------------------------------------------------------------
-
-// timestamp
-const runTimestamp = Math.round(Date.now()/1000);
-
-
-
-// options ----------------------------------------------------------------------
-
-// sass options
-// let sassOptions = {
-//   errLogToConsole: true,
-//   outputStyle: 'expanded'
-// };
-
-
-
-// tasks ----------------------------------------------------------------------
 
 // iconfont --------------------
 
 // iconfont: clean
-const confontClean = () => del([`${FOLDER_SRC_SASS}/*.svg`]);
+const iconfontClean = () => del([`${FOLDER_SRC_SASS}/*.svg`]);
 
 // iconfont: iconfont
-const iconfont = gulp.parallel(gulp.series(iconfontSass, confontClean), iconfontHtml);
+const iconfont = gulp.parallel(gulp.series(iconfontSass, iconfontClean), iconfontHtml);
 
 // iconfont: html
 function iconfontHtml() {
@@ -100,9 +83,6 @@ function iconfontHtml() {
       formats: ['ttf', 'eot', 'svg', 'woff', 'woff2'],
       timestamp: runTimestamp, // recommended to get consistent builds when watching files
     }))
-      // .on('glyphs', function(glyphs, options) {
-      //   console.log(glyphs, options);
-      // })
     .pipe(gulp.dest(`${FOLDER_DIST_ASSETS}/fonts/${fontName}`));
 }
 
@@ -113,14 +93,14 @@ function iconfontSass() {
       fontName: fontName,
       path: `${FOLDER_SRC_TEMPLATES}/_icons.scss`,
       targetPath: `_icons.scss`,
-      fontPath: '../fonts/icons/',
-      // cssClass: ''
     }))
     .pipe(gulp.dest(FOLDER_SRC_SASS));
 }
 
 
+
 // sytles --------------------
+
 function styles() {
   return gulp.src(`${FOLDER_SRC_SASS}/main.{sass,scss}`)
     .pipe(sass())
@@ -138,6 +118,7 @@ function styles() {
 
 
 // scripts --------------------
+
 function scripts() {
   return gulp.src(`${FOLDER_SRC_JS}/main.js`, { sourcemaps: true })
     .pipe(babel())
@@ -148,13 +129,8 @@ function scripts() {
 
 
 
-
-
-
-
 // clean --------------------
 
-// clean: dist
 const clean = () => del([`${FOLDER_DIST}`]);
 
 
@@ -178,16 +154,17 @@ function copyImg() {
 
 // browser-sync --------------------
 
+// browser-sync: reload
 function reload(done) {
   server.reload();
   done();
 }
 
-
+// browser-sync: serve
 function serve(done) {
   server.init({
     server: {
-      baseDir: `${FOLDER_DIST}/${projectName}/`
+      baseDir: `${FOLDER_DIST}/`
     }
   });
   done();
@@ -195,7 +172,7 @@ function serve(done) {
 
 
 
-// tasks --------------------
+// watch --------------------
 
 const watch = () => {
   gulp.watch(FOLDER_SRC_JS, gulp.series(scripts, reload));
@@ -203,11 +180,16 @@ const watch = () => {
   gulp.watch(FOLDER_SRC_TEMPLATES, gulp.series(iconfont, reload));
 };
 
+
+
+// tasks --------------------
+
 const dev = gulp.series(clean, copy, iconfont, gulp.parallel(styles, scripts), serve, watch);
 const build = gulp.series(clean, copy, iconfont, gulp.parallel(styles, scripts));
 
 
-// export tasks
+
+// exports --------------------
 exports.clean = clean;
 exports.copy = copy;
 exports.styles = styles;
@@ -218,15 +200,4 @@ exports.watch = watch;
 exports.dev = dev;
 exports.build = build;
 
-exports.default = dev;
-
-// gulp.task('default', ['clean', 'sync', 'iconfont-html', 'iconfont-sass', 'iconfont-css'], () => {
-// });
-
-// watch
-// gulp.task('watch', ['browser-sync', 'clean', 'iconfont-html', 'iconfont-sass', 'iconfont-css'], () => {
-//   // gulp.watch(ICONFONT_SVG_FOLDER + '*.svg', {cwd: LOCAL_ENV_PATH}, ['iconfont-html', 'iconfont-sass', 'iconfont-css']);
-//   // gulp.watch(ICONFONT_SASS_FOLDER + '**/*.{sass,scss}', {cwd: LOCAL_ENV_PATH}, ['iconfont-css']);
-//   // gulp.watch(ICONFONT_CSS_FOLDER + '*.css', {cwd: LOCAL_ENV_PATH}).on('change', browserSync.reload).on('end', browserSync.reload);
-//   // gulp.watch(FONT_VIEWER_FOLDER + '*.html', {cwd: LOCAL_ENV_PATH}).on('change', browserSync.reload).on('end', browserSync.reload);
-// });
+exports.default = build;
