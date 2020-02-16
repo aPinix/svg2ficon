@@ -1,23 +1,19 @@
 {
-  "name": "iconfont",
+  "name": "svg2ficon",
   "version": "1.0.0",
-  "description": "svg to iconfont",
+  "description": "Gulp SVG to Iconfont generator",
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "gh-pages": "git subtree push --prefix dist origin gh-pages",
     "deploy": "gh-pages -d dist"
   },
   "keywords": [
+    "svg2ficon",
     "iconfont"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/apinix/svg2fonticon/repository.git"
-  },
   "author": "aPinix",
   "license": "ISC",
-  "homepage": "http://apinix.github.io/svg2ficon/",
+  "homepage": "https://apinix.github.io/svg2ficon",
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
