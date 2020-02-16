@@ -1,0 +1,213 @@
+@import 'icons'
+@import 'setup'
+@import 'base'
+
+=background-filter()
+  background: rgba(white, .9)
+  // background-color: rgba(white, .1)
+  backdrop-filter: saturate(180%) blur(5px)
+
+
+.wrapper
+  width: 100%
+  height: 100%
+  margin: 0
+  padding: 0
+  display: flex
+  flex-direction: column
+  transition: all .125s ease-in-out
+
+  .header
+    flex: none
+    width: 100%
+    height: $search-height
+    color: $color-primary
+    position: fixed
+    top: 0
+    left: 0
+    +background-filter
+    z-index: 10
+    &:before
+      content: ''
+      width: $search-height/3
+      height: $search-height/3
+      opacity: .2
+      position: absolute
+      top: $search-height/3
+      left: $spacing*2
+      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAA1dJREFUWAnVl7lrVUEUxo07GnABQUWTSDrFxgWsAgqCuHRW4j/gAiJoZyOCFjZax6BgbaW4FhHigkYUNC6NouKOa0BUNOr3Czl5x+G+++ZuT/3gY+bOzFnuzJmZMy1jsmGGhq8V14gd4hxxrvhNfDHC+ypPihfF72JT0CUr50UM/orkR43rFtvEyrBQmpmNWKeSxn2R/EFxupgZLSkSm9TXI05OGHNHbZdEW9ZJqrPU7eJqcbYY4pEaNoj3wo6s3zi9Xwxn44Pa9ogLxDQgv0I8Jg6JXs+gvteLhXBA0l7pT30fFmfm0LpYMr2i10ccr8yha1iEZfXKPut7Y15lI3LjVB4Svd53+u4c6Y8u2BAEtCnCueXR0o0H7na6sUEcj28sVhvhdyvLWnTmapprNTadTQDlllpXeq0rECTmqsBEKR0QzclXqrfGGOIQNiF2a54NEWOHMexis0W5k8Y0cH35G4KjpGpclgFzsq+Rsc1uMEKNzrlG+mL6tzmbnJWz0oSOu8G30waW2DfP2WRSON4SMVatHa6H66sZeCYjj52hdlf/o4qD3KGG51ZpQsk9bvA+WNtwiYPkdIaXVmlCGe0gyaaBrKRZ8LY4RRLBDEb9SaJ0sUa/rK/rqQodrBus9RQUaG9zsqkOPnADSTbJ56rGEhnwZ19/mkGc4iwykmxWjb0yYPbIoJKy9lEfJqjGA8cEjo72VFNhczxx9s7GmDniBLh6yISrwi4ptsmgXBdjiID96gR7VScTLhvzpfC9aA6StEbHPE9DE6QkTS8TU6TsluhtZHpA8W59GCggTS8DU6XklOidI6wyY5EkBkWvqEffZMJ5QfiEM/dDbWQ0ucC0+wQWZ++KPLqzgKODFSBD9z9s9WtqnybmwipJ8TQ0ZVZeUdt2kWCvh2Xq2Cc+FU3OyqGg7bq+czvZKWF2mSkPS86yq+IJkfi6Kb4Vw3H2Taiw3DeCMYWc5N26VeT1ZYaylgOSJWwMvIFKdRLFrSKvrz4xXKYkhzlTz4k4lnTORTuZJCydqeCS5/7uEEl2SZvYVG9EZprZ4Ue4Y9OAkxfEpW5Qv+ro/uTa/mqVs7f05S77j3CSmfOhUmjjlO0g+v5bJ09XMRtFdIYz+c9sFv9TOHlGxLkdvwE5akR+EFeCZwAAAABJRU5ErkJggg==')
+      background-repeat: no-repeat
+      background-size: contain
+    &.no-color
+      color: rgba($color-gray, .5)
+    .fake-input
+      width: 100%
+      height: 100%
+      position: absolute
+      top: 0
+      left: 0
+      pointer-events: none
+      .typed
+        position: relative
+        height: 100%
+        line-height: $search-height
+        font-size: 30px
+        background: transparent
+        padding: 0 0 0 $spacing*6
+        color: inherit
+      .typed-cursor
+        opacity: 1
+        font-size: 30px
+        line-height: $search-height
+        display: inline-block
+        animation: blink .7s infinite
+        +keyframes(blink)
+          0%
+            opacity: 1
+          50%
+            opacity: 0
+          100%
+            opacity: 1
+    input
+      width: 100%
+      height: 100%
+      +outline
+      font-size: 30px
+      padding: 0 $spacing*2
+      color: inherit
+      background: white
+      border: none
+      text-indent: 40px
+      border-top: 2px solid white
+      border-bottom: 2px solid $color-lightest-gray
+      background: transparent
+      transition: all .125s ease-in-out
+      &:focus
+        border-top: 4px solid white
+        border-bottom: 4px solid $color-primary
+  .content
+    flex: 1
+    width: 100%
+    // padding: 100px 0
+    display: flex
+    justify-content: center
+    // background: rgba(#DDE5F3, .1)
+    overflow: auto
+    ul
+      width: $XL
+      list-style-type: none
+      padding: 0
+      margin: 100px 0
+      transition: all .4s ease-in-out
+      +mq(xl)
+        width: $XL
+      +mq(l)
+        width: $L
+      +mq(m)
+        width: $M
+      +mq(s)
+        width: $S
+      li
+        float: left
+        width: $block-size
+        height: $block-size
+        line-height: $block-size
+        border-radius: 10px
+        color: $color-medium-gray
+        margin: $gutter
+        font-size: $fonticon-size
+        background: white
+        text-align: center
+        border: 2px solid rgba($color-lightest-gray, .2)
+        box-shadow: 0 0 0px rgba(#434C5E, .05)
+        transition: all .18s ease-in-out
+        backface-visibility: hidden
+        &:before
+          line-height: $block-size !important
+        &:hover,
+          cursor: pointer
+          transform: scale(1.1)
+          color: $color-primary
+          background: rgba($color-primary, .05)
+          // border: 2px solid $color-primary
+          // box-shadow: 0px 10px 20px rgba(#434C5E, 0.15)
+          transform: translate(0, -4px)
+          z-index: 2
+        &.icon-clicked
+          cursor: pointer
+          transform: scale(1.2) !important
+          color: $color-primary
+          border: 2px solid $color-primary
+          box-shadow: 0 10px 30px rgba(black, .1)
+          z-index: 2
+  .footer
+    width: 100%
+    height: 100px
+    position: fixed
+    lrft: 0
+    bottom: 0
+    display: flex
+    align-items: center
+    justify-content: center
+    font-size: 14px
+    color: $color-gray
+    // border-top: 2px solid $color-lightest-gray
+    +background-filter
+    text-align: center
+    z-index: 10
+
+    .copyright-logo
+      width: 40px
+      height: auto
+      margin: 0 10px
+      display: flex
+      align-items: center
+      justify-content: center
+      img
+        width: 100%
+        height: 100%
+    a
+      text-decoration: none
+      color: $color-primary
+      border-bottom: 1px solid $color-primary
+
+.icon-modal
+  width: 100%
+  height: 100%
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 999
+  +background-filter
+  background: rgba($color-primary, .8)
+  cursor: url('data:image/pngbase64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAKVJREFUOBG1lYENgCAMBFuXcFG30EWdAlsTkgotfYw2McD3/9AokUspOxGdzHzI+LqEs0l4JZ3IpaXCq9LsTaiMTpjAhtmwMYCnmdRg4LAXMSIeszcNX9Q0rJK9oKdVPzRagJ1D4chkQDLNv9UlAv2im7vTk/A8DbM7egBPg7ij4KjnwpEA4rnhsFHcqTc1OM8TZsKGA2mlLtsJbQJYWwbL4tNfwAWqR3u+wo+5ewAAAABJRU5ErkJggg==') $close-img-size-half $close-img-size-half, auto
+  .icon-holder
+    width: 200px
+    height: 200px
+    background: rgba(white, .8)
+    border-radius: 20px
+    position: absolute
+    top: calc(50% - 100px)
+    left: calc(50% - 100px)
+    cursor: default
+    box-shadow: 0 10px 30px rgba($color-primary, .1)
+    // box-shadow: 0 1px 2px rgba($color-primary, .1), 0 5px 15px rgba($color-primary, .05)
+    .icon-big
+      width: 100%
+      height: 100%
+      padding: $spacing*3 40px
+      text-align: center
+      &:before
+        line-height: 120px
+        color: $color-medium-gray
+        font-size: $fonticon-size--big
+    .icon-title
+      width: 100%
+      position: absolute
+      cursor: text
+      // font-size: 26px
+      bottom: 0
+      left: 0
+      text-align: center
+      color: $color-medium-gray
+      padding: $spacing*1.5 0

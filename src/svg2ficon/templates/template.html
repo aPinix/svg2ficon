@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>iconfont-viewer</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico?v=1">
+    <link href="assets/css/main.min.css" rel="stylesheet" type="text/css">
+    <script src="assets/js/lib/jquery-3.1.0.min.js"></script>
+    <script src="assets/js/lib/isotope.pkgd.min.js"></script>
+    <script src="assets/js/lib/TweenMax.min.js"></script>
+    <script src="assets/js/lib/typed.min.js"></script>
+    <script src="assets/js/main.min.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="header no-color">
+        <input placeholder="" type="text">
+      </div>
+      <div class="content">
+        <ul>
+          <% _.each(glyphs, function(glyph) { %><li class="icon icon-<%= glyph.fileName %>" title="icon-<%= glyph.fileName %>"></li>
+          <% }); %>
+        </ul>
+      </div>
+      <div class="footer">
+        <div class="copyright-year">&copy; 2016</div>
+        <div class="copyright-logo">
+          <img src="assets/img/svg2icon.png" alt="svg2icon">
+        </div>
+        <a class="copyright-user" href="http://www.apinix.me" target="_blank">aPinix</a>
+      </div>
+    </div>
+  </body>
+</html>

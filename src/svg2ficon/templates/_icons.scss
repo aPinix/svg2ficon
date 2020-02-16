@@ -1,0 +1,22 @@
+// vars
+$font-icons--path: '../fonts/<%= fontName %>/';
+$font-icons--family: '<%= fontName %>';
+
+// map icons
+$icons: (
+  <% _.each(glyphs, function(glyph) { %><%= glyph.fileName %>: '\<%= glyph.codePoint %>',
+  <% }); %>
+);
+
+// map icons
+// ------------------------------------------------------------------
+@each $key, $value in $icons {
+  .icon-#{$key} {
+    // @include icon($value);
+    &:before {
+      content: $value;
+      font-family: $font-icons--family;
+      @extend %fontstyles;
+    }
+  }
+}

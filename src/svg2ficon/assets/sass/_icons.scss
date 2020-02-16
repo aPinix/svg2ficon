@@ -1,0 +1,57 @@
+// vars
+$font-icons--path: '../fonts/altaricons/';
+$font-icons--family: 'altaricons';
+
+// map icons
+$icons: (
+  bank: '\E001',
+  building-1: '\E002',
+  building-10: '\E003',
+  building-11: '\E004',
+  building-12: '\E005',
+  building-13: '\E006',
+  building-2: '\E007',
+  building-3: '\E008',
+  building-4: '\E009',
+  building-5: '\E00A',
+  building-6: '\E00B',
+  building-7: '\E00C',
+  building-8: '\E00D',
+  building-9: '\E00E',
+  building: '\E00F',
+  castle-1: '\E010',
+  castle-2: '\E011',
+  castle: '\E012',
+  church: '\E013',
+  garage: '\E014',
+  hospital-1: '\E015',
+  hospital: '\E016',
+  hotel-1: '\E017',
+  hotel-2: '\E018',
+  hotel-3: '\E019',
+  hotel: '\E01A',
+  house-1: '\E01B',
+  house-2: '\E01C',
+  house: '\E01D',
+  mosque: '\E01E',
+  office: '\E01F',
+  resort: '\E020',
+  school-1: '\E021',
+  school: '\E022',
+  shop: '\E023',
+  tent: '\E024',
+  
+);
+
+// map icons
+// ------------------------------------------------------------------
+@each $key, $value in $icons {
+  .icon-#{$key} {
+    // @include icon($value);
+    &:before {
+      content: $value;
+      font-family: $font-icons--family;
+      @extend %fontstyles;
+    }
+  }
+}

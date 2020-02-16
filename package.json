@@ -1,0 +1,42 @@
+{
+  "name": "iconfont",
+  "version": "1.0.0",
+  "description": "svg to iconfont",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "deploy": "gh-pages -d dist"
+  },
+  "keywords": [
+    "iconfont"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/apinix/svg2fonticon/repository.git"
+  },
+  "author": "aPinix",
+  "license": "ISC",
+  "homepage": "https://aPinix.github.io/svg2ficon",
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/register": "^7.8.3",
+    "browser-sync": "^2.26.7",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-iconfont": "^10.0.3",
+    "gulp-iconfont-css": "^3.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "plumber": "^0.4.8"
+  },
+  "dependencies": {
+    "gh-pages": "^2.2.0"
+  }
+}

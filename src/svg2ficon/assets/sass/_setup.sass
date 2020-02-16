@@ -1,0 +1,115 @@
+// $color-primary: #7ED321
+$color-primary: #0081ff
+
+$color-lightest-gray: #EAEDF0
+$color-gray: #A6ACB0
+$color-medium-gray: #8B9398
+$color-dark-gray: #323A44
+
+$block-size: 80px
+$spacing: 10px
+$gutter: $spacing
+
+$fonticon-size: 40px
+$fonticon-size--big: 120px
+
+$search-height: 80px
+$close-img-size: 20px
+$close-img-size-half: (((($close-img-size)/2) / ((($close-img-size)/2) * 0 + 1)))
+
+// breakpoints
+$S:  $block-size*3 + $gutter*6
+$M:  $block-size*4 + $gutter*8
+$L:  $block-size*5 + $gutter*10
+$XL: $block-size*6 + $gutter*12
+
+// breakpoints
+$breakpoints: (s: 320px, m: 768px, l: 1024px, xl: 1200px) !default
+
+=scrollbar($_foreground, $_background, $_size, $_border-radius: $_size / 2)
+  $state__color--hover: darken($_foreground, 10%)
+  $state__color--active: darken($_foreground, 20%)
+
+  &::-webkit-scrollbar
+    width: $_size
+    height: $_size
+
+  &::-webkit-scrollbar-thumb
+    background-color: $_foreground
+    border-radius: $_border-radius
+    cursor: pointer
+
+    &:horizontal:hover,
+    &:vertical:hover
+      background-color: $state__color--hover
+
+    &:horizontal:active,
+    &:vertical:active
+      background-color: $state__color--active
+
+  // &:hover::-webkit-scrollbar
+  //   opacity: 1
+
+  &::-webkit-scrollbar-track
+    background-color: $_background
+
+  &::-webkit-scrollbar-button
+    display: none
+
+=outline
+  outline: none !important
+  outline: 0 !important
+
+=keyframes($anim-name)
+  @-webkit-keyframes #{$anim-name}
+    @content
+  @-moz-keyframes #{$anim-name}
+    @content
+  @-ms-keyframes #{$anim-name}
+    @content
+  @keyframes #{$anim-name}
+    @content
+
+=mq($bp, $rule: max-width)
+  $bp-in-map: map-has-key($breakpoints, $bp)
+  @if $bp-in-map == true
+    @media screen and (#{$rule}: map-get($breakpoints, $bp))
+      @content
+  @else
+    @media screen and (#{$rule}: $bp)
+      @content
+
+
+// font face to import the font
+=font-face($font-family-name, $file-name, $fonts-path, $weight: normal, $style: normal)
+  @font-face
+    font-family: $font-family-name
+    src: url($fonts-path + $file-name + ".eot")
+    src: url($fonts-path + $file-name + ".eot?#iefix") format("embedded-opentype"), url($fonts-path + $file-name + ".woff") format("woff"), url($fonts-path + $file-name + ".ttf") format("truetype"), url($fonts-path + $file-name + ".svg#" + $file-name + "") format("svg")
+    font-weight: $weight
+    font-style: $style
+
+// include iconfont with fontface
++font-face($font-icons--family, $font-icons--family, $font-icons--path)
+
+%fontstyles
+  font-family: $font-icons--family
+  speak: none
+  font-style: normal
+  font-weight: normal
+  font-variant: normal
+  text-transform: none
+  line-height: 1
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+
+// iconfont mixin
+=icon($icon: false, $position: before, $styles: true)
+  @if $position == both
+    $position: "before, &:after"
+  &:#{$position}
+    @if $icon
+      content: '#{map-get($icons, $icon)}'
+    @if $styles
+      @extend %fontstyles
+    @content

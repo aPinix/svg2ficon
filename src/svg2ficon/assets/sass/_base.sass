@@ -1,0 +1,35 @@
+html
+  box-sizing: border-box
+
+*,
+*:before,
+*:after
+  box-sizing: inherit
+
+body,
+html
+  height: 100%
+
+html
+  +scrollbar(#D8DEE9, #4C566A, 4px)
+
+body
+  width: 100%
+  margin: 0
+  padding: 0
+  // background: rgba(#F4F5F9, .3)
+  font-family: Arial, sans-serif
+
+// selection
+::-moz-selection
+  background: $color-primary
+  color: white
+::selection
+  background: $color-primary
+  color: white
+
+// input
+input::-webkit-input-placeholder
+  color: $color-medium-gray
+  text-shadow: none
+  -webkit-text-fill-color: initial
